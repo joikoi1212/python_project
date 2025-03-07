@@ -1,0 +1,31 @@
+{% extends 'client/_main.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if not has_subscription %}
+    <div class="container bg-white shadow mt-5 p-5 form-layout text-center">
+        <h4>{% translate 'Choose a subscription plan' %}</h4>
+        <hr>
+        <a href="{% url 'subscribe-plan' %}" class="btn btn-info">
+            {% translate "View Subscription plans" %}
+            </a>
+    </div>
+{% endif %}
+    <div class="container bg-white shadow mt-5 p-5 form-layout">
+        <h3>✏️{% translate "Update account details" %}</h3>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ update_user_form|crispy }}
+            <div class="article-info">
+                <input type="submit" value="{% translate 'Update' %}" class="btn btn-success">
+
+                <a href="{% url 'delete-user' %}" class="btn btn-danger">
+                    {% translate "Delete" %}
+                    </a>
+            </div>
+
+        </form>
+    </div>
+    
+{% endblock %} 
